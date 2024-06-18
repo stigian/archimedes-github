@@ -1,16 +1,16 @@
 data "github_organization" "this" {
-  name = var.org_name
+  name = var.name
 }
 
 resource "github_organization_settings" "this" {
-  billing_email                                                = var.org_billing_email
-  company                                                      = var.org_company_name
-  blog                                                         = var.org_blog_url
-  email                                                        = var.org_email
-  twitter_username                                             = var.org_twitter_username
-  location                                                     = var.org_location
-  name                                                         = var.org_name
-  description                                                  = var.org_description
+  billing_email                                                = var.billing_email
+  company                                                      = var.company_name
+  blog                                                         = var.blog_url
+  email                                                        = var.email
+  twitter_username                                             = var.twitter_username
+  location                                                     = var.location
+  name                                                         = var.name
+  description                                                  = var.description
   has_organization_projects                                    = true
   has_repository_projects                                      = true
   default_repository_permission                                = "none"
