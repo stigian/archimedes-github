@@ -1,4 +1,29 @@
 ## GitHub Enterprise Organization Module
+
+This module configures an _existing_ GitHub organization according to the [CIS Software Supply Chain Security Guide v.1.0](https://github.com/aquasecurity/chain-bench/blob/main/docs/CIS-Software-Supply-Chain-Security-Guide-v1.0.pdf). The settings defined here flow down to all repositories within the organization. Additional settings not avaialble at the organiation level are defined in the [repository module](../repository/README.md).
+
+### Pre-requisites
+
+- GitHub Enterprise Cloud with GitHub Advanced Security
+
+### Usage
+
+```hcl
+module "org" {
+  source = "github.com/stigian/terraform-github-archimedes//modules/organization"
+  version = "1.0.0"
+
+  billing_email    = var.billing_email
+  company_name     = var.company_name
+  blog_url         = var.blog_url
+  email            = var.email
+  twitter_username = var.twitter_username
+  location         = var.location
+  name             = var.name
+  description      = var.description
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

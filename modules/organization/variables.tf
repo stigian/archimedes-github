@@ -1,6 +1,11 @@
 ###############################################################################
 # Organization Variables
 ###############################################################################
+variable "org_name" {
+  description = "The registered GitHub organization name (may be different from the display name)"
+  type        = string
+}
+
 variable "billing_email" {
   description = "The billing email for the GitHub organization"
   type        = string
@@ -34,8 +39,8 @@ variable "location" {
   default     = null
 }
 
-variable "name" {
-  description = "The display name of the GitHub organization"
+variable "display_name" {
+  description = "The display name for the GitHub organization (may be different from the registered name)"
   type        = string
 }
 
