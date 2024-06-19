@@ -1,5 +1,5 @@
 data "github_organization" "this" {
-  name = var.name
+  name = var.org_name
 }
 
 resource "github_organization_settings" "this" {
@@ -9,7 +9,7 @@ resource "github_organization_settings" "this" {
   email                                                        = var.email
   twitter_username                                             = var.twitter_username
   location                                                     = var.location
-  name                                                         = var.name
+  name                                                         = var.display_name
   description                                                  = var.description
   has_organization_projects                                    = true
   has_repository_projects                                      = true
