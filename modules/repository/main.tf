@@ -1,9 +1,8 @@
 
 resource "github_repository" "this" {
-  name        = var.repo_name
-  description = var.repo_description
-
-  visibility = var.visibility
+  name        = var.name
+  description = var.description
+  visibility  = var.visibility
 
   auto_init              = true
   has_issues             = true
@@ -32,16 +31,6 @@ resource "github_repository" "this" {
   }
 }
 
-resource "github_branch" "development" {
-  repository = github_repository.this.name
-  branch     = "dev"
-}
-
-resource "github_branch" "test" {
-  repository = github_repository.this.name
-  branch     = "test"
-}
-
 resource "github_branch" "main" {
   repository = github_repository.this.name
   branch     = "main"
@@ -53,7 +42,7 @@ resource "github_branch_default" "main" {
 }
 
 resource "github_branch_protection" "main" {
-  repository_id = github_repository.this.node_id
+  repository_id = github_repository.this.name
 
   pattern                         = "main"
   enforce_admins                  = true  # CIS 1.1.14 Ensure branch protection rules are enforced on administrators
@@ -62,11 +51,7 @@ resource "github_branch_protection" "main" {
   required_linear_history         = true  # CIS 1.1.13 Ensure linear history is required
   allows_deletions                = false # CIS 1.1.17 Ensure branch deletions are denied
   allows_force_pushes             = false # CIS 1.1.16 Ensure force pushes code to branches is denied
-
-  # restrict_pushes {
-  # }
-
-  # force_push_bypassers = [] # Allow no one to bypass force push restrictions
+  force_push_bypassers            = []    # Allow no one to bypass force push restrictions
 
   # https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_protection#required-status-checks
   required_status_checks {
@@ -78,27 +63,24 @@ resource "github_branch_protection" "main" {
   # CIS 1.1.4 Ensure previous approvals are dismissed when updates are introduced to a code change proposal
   # CIS 1.1.5 Ensure that there are restrictions on who can dismiss code change reviews
   required_pull_request_reviews {
-    dismiss_stale_reviews = true
-    restrict_dismissals   = true
+    dismiss_stale_reviews           = true
+    restrict_dismissals             = true
+    require_code_owner_reviews      = true
+    required_approving_review_count = 2
+    require_last_push_approval      = true
     dismissal_restrictions = [
-      github_team.administrators.node_id,
-      "/exampleuser",
-      "stigian/exampleteam",
+      # github_team.administrators.node_id,
+      # "/exampleuser",
+      # "exampleorganization/exampleteam",
     ]
   }
 
   # CIS 1.1.15 Ensure pushing of new code is restricted to specific individuals or teams
-  # restrict_pushes {
-  #   push_allowances = [
-  #     data.github_user.example.node_id,
-  #     "/exampleuser",
-  #     "exampleorganization/exampleteam",
-  #     # you can have more than one type of restriction (teams + users). If you use
-  #     # more than one type, you must use node_ids of each user and each team.
-  #     # github_team.example.node_id
-  #     # github_user.example-2.node_id
-  #   ]
-  # }
+  # Organization administrators, repository administrators, and users with the Maintain
+  # role on the repository can always push when all other requirements have passed.
+  restrict_pushes {
+    push_allowances = var.push_allowances
+  }
 
   # force_push_bypassers = [
   #   data.github_user.example.node_id,
@@ -108,5 +90,49 @@ resource "github_branch_protection" "main" {
   #   # github_team.example.node_id
   #   # github_team.example-2.node_id
   # ]
+}
 
+# This resource ensures that current and future branches adhere to the CIS 1.0.0
+# ruleset. The github_branch_protection.main resource applies additional
+# protections to the main branch.
+resource "github_repository_ruleset" "this" {
+  name        = "CIS-1.0.0"
+  repository  = github_repository.this.name
+  target      = "branch"
+  enforcement = "active"
+
+  conditions {
+    ref_name {
+      include = ["~ALL"]
+      exclude = []
+    }
+  }
+
+  # bypass_actors {
+  #   actor_id    = 13473
+  #   actor_type  = "Integration"
+  #   bypass_mode = "always"
+  # }
+
+  rules {
+    creation                = false # Allow any authorized users to create branches
+    update                  = false # Allow any authorized users to update branches
+    deletion                = false # Allow any authorized users to delete branches
+    required_linear_history = true
+    required_signatures     = true
+    non_fast_forward        = true # Prevent force pushes
+
+    pull_request {
+      dismiss_stale_reviews_on_push     = true
+      require_code_owner_review         = true
+      require_last_push_approval        = true
+      required_approving_review_count   = 2
+      required_review_thread_resolution = true
+    }
+
+    # TODO: revise later after testing deployments
+    # required_deployments {
+    #   required_deployment_environments = ["test"]
+    # }
+  }
 }
