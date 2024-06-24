@@ -23,3 +23,9 @@ variable "push_allowances" {
   type        = list(string)
   default     = []
 }
+
+variable "vulnerability_alerts" {
+  type        = bool
+  description = "Enable security alerts for vulnerable dependencies (set false for GHES)"
+  default     = true
+}
