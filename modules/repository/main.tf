@@ -7,8 +7,10 @@ resource "github_repository" "this" {
   auto_init              = true
   has_issues             = true
   has_discussions        = true
+  has_downloads          = false
   has_projects           = true
   has_wiki               = true
+  is_template            = false
   allow_merge_commit     = false # CIS 1.1.13 Ensure linear history is required
   allow_squash_merge     = true  # CIS 1.1.13 Ensure linear history is required
   allow_rebase_merge     = true  # CIS 1.1.13 Ensure linear history is required
