@@ -1,6 +1,6 @@
 ## GitHub Enterprise Team Repository Module
 
-This module takes a list of teams and assigns them to a repository. It also sets the desired role for the team on that repository (e.g. pull, push, triage, maintain, admin). This module can be used in conjunction with the [team module](../team/README.md). The `team` module creates the teams, and this module assigns the teams to repositories.
+This module takes a list of teams and assigns them to a repository. It also sets the desired [role](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/repository-roles-for-an-organization) for the team on that repository (e.g. pull, push, triage, maintain, admin). This module can be used in conjunction with the [team module](../team/README.md). The `team` module creates the teams, and this module assigns the teams to repositories.
 
 If you are using something like [Entra ID](https://learn.microsoft.com/en-us/entra/identity/saas-apps/github-tutorial) to manage SSO to your GitHub organization you still need a way to assign teams to repositories. This module is designed to help with that by enabling you to use code to manage each team's access to repositories.
 
