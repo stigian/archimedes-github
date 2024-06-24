@@ -11,7 +11,7 @@ This module configures an _existing_ GitHub organization according to the [CIS S
 ```hcl
 module "org" {
   source = "github.com/stigian/terraform-github-archimedes//modules/organization"
-  version = "1.0.0"
+  version = "0.1.0"
 
   billing_email    = var.billing_email
   company_name     = var.company_name
@@ -52,14 +52,15 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_org_billing_email"></a> [org\_billing\_email](#input\_org\_billing\_email) | The billing email for the GitHub organization | `string` | n/a | yes |
-| <a name="input_org_blog_url"></a> [org\_blog\_url](#input\_org\_blog\_url) | The URL of the GitHub organization's blog | `string` | `null` | no |
-| <a name="input_org_company_name"></a> [org\_company\_name](#input\_org\_company\_name) | The name of the company owning/operating the GitHub organization | `string` | n/a | yes |
-| <a name="input_org_description"></a> [org\_description](#input\_org\_description) | The description of the GitHub organization | `string` | n/a | yes |
-| <a name="input_org_email"></a> [org\_email](#input\_org\_email) | The contact email for the GitHub organization | `string` | n/a | yes |
-| <a name="input_org_location"></a> [org\_location](#input\_org\_location) | The location of the company or organization | `string` | `null` | no |
-| <a name="input_org_name"></a> [org\_name](#input\_org\_name) | The display name of the GitHub organization | `string` | n/a | yes |
-| <a name="input_org_twitter_username"></a> [org\_twitter\_username](#input\_org\_twitter\_username) | The Twitter username for the GitHub organization | `string` | `null` | no |
+| <a name="input_billing_email"></a> [billing\_email](#input\_billing\_email) | The billing email for the GitHub organization | `string` | n/a | yes |
+| <a name="input_blog_url"></a> [blog\_url](#input\_blog\_url) | The URL of the GitHub organization's blog | `string` | `null` | no |
+| <a name="input_company_name"></a> [company\_name](#input\_company\_name) | The name of the company owning/operating the GitHub organization | `string` | n/a | yes |
+| <a name="input_description"></a> [description](#input\_description) | The description of the GitHub organization | `string` | n/a | yes |
+| <a name="input_display_name"></a> [display\_name](#input\_display\_name) | The display name for the GitHub organization (may be different from the org name) | `string` | n/a | yes |
+| <a name="input_email"></a> [email](#input\_email) | The contact email for the GitHub organization | `string` | n/a | yes |
+| <a name="input_location"></a> [location](#input\_location) | The location of the company or organization (default is null) | `string` | `null` | no |
+| <a name="input_org_name"></a> [org\_name](#input\_org\_name) | The registered GitHub organization name (may be different from the display name) | `string` | n/a | yes |
+| <a name="input_twitter_username"></a> [twitter\_username](#input\_twitter\_username) | The Twitter username for the GitHub organization (default is null) | `string` | `null` | no |
 
 ## Outputs
 

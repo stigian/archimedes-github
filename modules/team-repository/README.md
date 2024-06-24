@@ -9,7 +9,7 @@ If you are using something like [Entra ID](https://learn.microsoft.com/en-us/ent
 ```hcl
 module "team_assignment" {
   source = "github.com/stigian/terraform-github-archimedes//modules/team-repository"
-  version = "1.0.0"
+  version = "0.1.0"
 
   repository = "example-repo"
   teams = [
@@ -55,7 +55,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_repository"></a> [repository](#input\_repository) | The name of the repository to assign teams to | `string` | n/a | yes |
-| <a name="input_teams"></a> [teams](#input\_teams) | List of teams to be assigned to the repository | <pre>list(object({<br>    name = string<br>    role = string # Options: "pull", "push", "triage", "maintain", "admin"<br>  }))</pre> | `[]` | no |
+| <a name="input_teams"></a> [teams](#input\_teams) | List of teams to be assigned to the repository (default is none) | <pre>list(object({<br>    name = string<br>    role = string # Options: "pull", "push", "triage", "maintain", "admin"<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
