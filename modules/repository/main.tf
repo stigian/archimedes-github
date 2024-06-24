@@ -18,7 +18,7 @@ resource "github_repository" "this" {
   allow_update_branch    = true # CIS 1.1.10 Ensure open git branches are up to date before they can be merged into codebase
   delete_branch_on_merge = false
   archive_on_destroy     = true # Prevent accidental deletion
-  vulnerability_alerts   = true
+  vulnerability_alerts   = var.vulnerability_alerts
 
   security_and_analysis {
     advanced_security {
