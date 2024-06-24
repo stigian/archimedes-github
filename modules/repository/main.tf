@@ -33,15 +33,9 @@ resource "github_repository" "this" {
   }
 }
 
-# resource "github_branch" "main" {
-#   repository = github_repository.this.name
-#   branch     = "main"
-# }
-
 resource "github_branch_default" "main" {
   repository = github_repository.this.name
   branch     = "main"
-  # branch     = github_branch.main.branch
 }
 
 resource "github_branch_protection" "main" {
@@ -54,7 +48,6 @@ resource "github_branch_protection" "main" {
   required_linear_history         = true  # CIS 1.1.13 Ensure linear history is required
   allows_deletions                = false # CIS 1.1.17 Ensure branch deletions are denied
   allows_force_pushes             = false # CIS 1.1.16 Ensure force pushes code to branches is denied
-  force_push_bypassers            = []    # Allow no one to bypass force push restrictions
 
   # https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_protection#required-status-checks
   required_status_checks {
@@ -71,7 +64,7 @@ resource "github_branch_protection" "main" {
     require_code_owner_reviews      = true
     required_approving_review_count = 2
     require_last_push_approval      = true
-    dismissal_restrictions = [
+    dismissal_restrictions = [ # Allow none to dismiss reviews
       # github_team.administrators.node_id,
       # "/exampleuser",
       # "exampleorganization/exampleteam",
@@ -85,14 +78,14 @@ resource "github_branch_protection" "main" {
     push_allowances = var.push_allowances
   }
 
-  # force_push_bypassers = [
-  #   data.github_user.example.node_id,
-  #   "/exampleuser",
-  #   "exampleorganization/exampleteam",
-  #   # you can have more than one type of restriction (teams + users)
-  #   # github_team.example.node_id
-  #   # github_team.example-2.node_id
-  # ]
+  force_push_bypassers = [ # Allow none to bypass force push restrictions
+    #   data.github_user.example.node_id,
+    #   "/exampleuser",
+    #   "exampleorganization/exampleteam",
+    #   # you can have more than one type of restriction (teams + users)
+    #   # github_team.example.node_id
+    #   # github_team.example-2.node_id
+  ]
 }
 
 # This resource ensures that current and future branches adhere to the CIS 1.0.0

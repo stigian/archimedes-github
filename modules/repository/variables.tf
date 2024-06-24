@@ -26,6 +26,6 @@ variable "push_allowances" {
 
 variable "vulnerability_alerts" {
   type        = bool
-  description = "Enable security alerts for vulnerable dependencies (set false for GHES)"
+  description = "Enable security alerts for vulnerable dependencies (default true for GHEC)"
   default     = true
 }

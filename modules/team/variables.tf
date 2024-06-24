@@ -19,7 +19,7 @@ variable "privacy" {
 }
 
 variable "members" {
-  description = "The list of GitHub usernames to add to the team"
+  description = "The list of GitHub usernames to add to the team (default is none)"
   type = list(object({
     username = string
     role     = string # Options: "pull", "push", "triage", "maintain", "admin"

@@ -1,6 +1,7 @@
 ###############################################################################
-# Organization Variables
+# Organization
 ###############################################################################
+
 variable "org_name" {
   description = "The registered GitHub organization name (may be different from the display name)"
   type        = string
@@ -28,19 +29,19 @@ variable "email" {
 }
 
 variable "twitter_username" {
-  description = "The Twitter username for the GitHub organization"
+  description = "The Twitter username for the GitHub organization (default is null)"
   type        = string
   default     = null
 }
 
 variable "location" {
-  description = "The location of the company or organization"
+  description = "The location of the company or organization (default is null)"
   type        = string
   default     = null
 }
 
 variable "display_name" {
-  description = "The display name for the GitHub organization (may be different from the registered name)"
+  description = "The display name for the GitHub organization (may be different from the org name)"
   type        = string
 }
 
