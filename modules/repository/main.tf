@@ -33,14 +33,15 @@ resource "github_repository" "this" {
   }
 }
 
-resource "github_branch" "main" {
-  repository = github_repository.this.name
-  branch     = "main"
-}
+# resource "github_branch" "main" {
+#   repository = github_repository.this.name
+#   branch     = "main"
+# }
 
 resource "github_branch_default" "main" {
   repository = github_repository.this.name
-  branch     = github_branch.main.branch
+  branch     = "main"
+  # branch     = github_branch.main.branch
 }
 
 resource "github_branch_protection" "main" {
