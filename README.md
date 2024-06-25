@@ -30,17 +30,18 @@ module "org" {
 }
 
 module "repository" {
-  source = "github.com/stigian/terraform-github-archimedes//modules/repository"
+  source  = "github.com/stigian/terraform-github-archimedes//modules/repository"
   version = "0.1.0"
 
-  name             = "example-repo"
-  description      = "example-description"
-  visibility       = "private"
-  push_allowances  = ["example-org/example-team"] # org-name/team-name
+  name                 = "example-repo"
+  description          = "example-description"
+  visibility           = "private"
+  push_allowances      = ["example-org/example-team"] # org-name/team-name
+  vulnerability_alerts = var.vulnerability_alerts
 }
 
 module "team" {
-  source = "github.com/stigian/terraform-github-archimedes//modules/team"
+  source  = "github.com/stigian/terraform-github-archimedes//modules/team"
   version = "0.1.0"
 
   name        = "team1"
@@ -59,11 +60,11 @@ module "team" {
 }
 
 module "team_assignment" {
-  source = "github.com/stigian/terraform-github-archimedes//modules/team-repository"
+  source  = "github.com/stigian/terraform-github-archimedes//modules/team-repository"
   version = "0.1.0"
 
   repository = "example-repo"
-  teams = [
+  teams      = [
     {
       name = "team1"
       role = "admin"
