@@ -16,7 +16,7 @@ module "repository" {
   description          = "example-description"
   visibility           = "private"
   push_allowances      = ["example-org/example-team"] # org-name/team-name
-  vulnerability_alerts = true
+  vulnerability_alerts = var.vulnerability_alerts
 }
 ```
 
