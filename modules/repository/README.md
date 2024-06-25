@@ -2,6 +2,9 @@
 
 This module creates a GitHub repository that complies with the [CIS Software Supply Chain Security Guide 1.0](https://github.com/aquasecurity/chain-bench/blob/main/docs/CIS-Software-Supply-Chain-Security-Guide-v1.0.pdf).
 
+> [!NOTE]
+> `vulnerability_alerts` should be true for GitHub Enterprise Cloud (GHEC) and false for GitHub Enterprise Server (GHES). GHES requires additional configuration to enable security alerts for vulnerable dependencies. See [this doc page](https://docs.github.com/en/enterprise-server@3.13/admin/configuring-settings/configuring-github-connect/enabling-dependabot-for-your-enterprise) for more information.
+
 ## Usage
 
 ```hcl
@@ -9,10 +12,11 @@ module "repository" {
   source = "github.com/stigian/terraform-github-archimedes//modules/repository"
   version = "0.1.0"
 
-  name             = "example-repo"
-  description      = "example-description"
-  visibility       = "private"
-  push_allowances  = ["example-org/example-team"] # org-name/team-name
+  name                 = "example-repo"
+  description          = "example-description"
+  visibility           = "private"
+  push_allowances      = ["example-org/example-team"] # org-name/team-name
+  vulnerability_alerts = true
 }
 ```
 

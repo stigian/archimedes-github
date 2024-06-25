@@ -8,11 +8,11 @@ If you are using something like [Entra ID](https://learn.microsoft.com/en-us/ent
 
 ```hcl
 module "team_assignment" {
-  source = "github.com/stigian/terraform-github-archimedes//modules/team-repository"
+  source  = "github.com/stigian/terraform-github-archimedes//modules/team-repository"
   version = "0.1.0"
 
   repository = "example-repo"
-  teams = [
+  teams      = [
     {
       name = "team1"
       role = "admin"
