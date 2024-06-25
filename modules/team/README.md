@@ -6,7 +6,7 @@ This module creates teams in a GitHub Enterprise organization. You can use this 
 
 ```hcl
 module "team" {
-  source = "github.com/stigian/terraform-github-archimedes//modules/team"
+  source  = "github.com/stigian/terraform-github-archimedes//modules/team"
   version = "0.1.0"
 
   name        = "team1"
