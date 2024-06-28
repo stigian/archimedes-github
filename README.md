@@ -16,7 +16,7 @@ Sample code for using modules individually is included in the respective README.
 
 ```hcl
 module "org" {
-  source = "github.com/stigian/terraform-github-archimedes//modules/organization"
+  source  = "github.com/stigian/terraform-github-archimedes//modules/organization"
   version = "0.1.0"
 
   billing_email    = var.billing_email
@@ -74,6 +74,8 @@ module "team_assignment" {
       role = "push"
     }
   ]
+
+  depends_on = [module.repository, module.team]
 }
 ```
 
